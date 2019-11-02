@@ -2,13 +2,18 @@
 
 This repository contains the getting started documentation for the LLNL Nimbus Cluster.
 
-* [Request Access](#request_access)
-* [Next Steps](#next_steps)
+* [Create a Github account](#github-account)
+* [Request Access](#request-access)
+* [Next Steps](#next-steps)
 * [Issues](#issues)
+
+## GitHub Account
+
+If you do not already have a GitHub account please create one [here](https://github.com/join)
 
 ## Request Access
 
-To request access to a Jupyer Lab instance on the Nimbus cluster please open a githb [issue](https://github.com/esgf-nimbus/getting_started/issues/new?assignees=&labels=awaiting-review&template=access-request.md&title=Access+request+for).
+**TBD**
 
 ## Next Steps
 
