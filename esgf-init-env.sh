@@ -30,4 +30,4 @@ SOURCE_LINE=". ${HOME}/.esgf-functions.sh"
 
 esgf-update
 
-# touch "${LOCK_FILE}"
+touch "${LOCK_FILE}"
