@@ -1,6 +1,11 @@
 #! /bin/bash
 
-cat << EOF > .init-functions.sh
+# set -v
+
+GETTING_STARTED_URL="https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/getting_started.ipynb"
+ESGF_SEARCH_URL="https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/esgf_search.ipynb"
+
+cat << EOF > "${HOME}/.init-functions.sh"
 #!/bin/bash
 
 function compute_init {
@@ -9,15 +14,17 @@ function compute_init {
   conda init bash
 }
 
-GETTING_STARTED_URL="https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/getting_started.ipynb"
-ESGF_SEARCH_URL="https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/esgf_search.ipynb"
-
 function download_file {
-  curl ${1} -O
+  curl \${1} -O
 }
 
-alias getting_started=download_file "${GETTING_STARTED_URL}"
-alias esgf_search=download_file "${ESGF_SEARCH_URL}"
+function getting_started {
+  download_file "${GETTING_STARTED_URL}"
+}
+
+function esgf_search {
+  download_file "${ESGF_SEARCH_URL}"
+}
 EOF
 
 BASHRC="${HOME}/.bashrc"
@@ -27,7 +34,7 @@ SOURCE_LINE=". ${HOME}/.esgf-functions.sh"
 [[ ! $(grep "${SOURCE_LINE}" "${BASHRC}") ]] && echo "${SOURCE_LINE}" >> "${BASHRC}"
 
 # Source the functions now to use them.
-. "${HOME}/.esgf-functions.sh"
+. "${HOME}/.init-functions.sh"
 
 LOCK_FILE="${HOME}/.compute-lock"
 GETTING_STARTED="${HOME}/getting_started.ipynb"
