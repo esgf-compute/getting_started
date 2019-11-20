@@ -12,10 +12,6 @@ cat << EOF > .esgf-functions.sh
 #!/bin/bash
 
 function esgf-update {
-  mkdir -p ${HOME}/getting_started
-
-  cd ${HOME}/getting_started
-
   curl https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/getting_started.ipynb -O
   curl https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/esgf_search.ipynb -O
 }
