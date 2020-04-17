@@ -1,17 +1,24 @@
 #! /bin/bash
 
-# set -v
+set -x 
 
+LOCK_FILE="${HOME}/.compute-lock"
 GETTING_STARTED_URL="https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/getting_started.ipynb"
-ESGF_SEARCH_URL="https://raw.githubusercontent.com/esgf-nimbus/getting_started/master/esgf_search.ipynb"
 
 cat << EOF > "${HOME}/.init-functions.sh"
 #!/bin/bash
 
 function compute_init {
-  echo -e "envs_dirs:\n - /home/jovyan/conda-envs" > /home/jovyan/.condarc
+  if [[ ! -e ${LOCK_FILE} ]]
+  then
+    echo -e "envs_dirs:\n - /home/jovyan/conda-envs" > /home/jovyan/.condarc
 
-  conda init bash
+    conda init bash
+
+    getting_started
+
+    init_lock
+  fi
 }
 
 function download_file {
@@ -22,13 +29,17 @@ function getting_started {
   download_file "${GETTING_STARTED_URL}"
 }
 
-function esgf_search {
-  download_file "${ESGF_SEARCH_URL}"
+function init_lock {
+  touch ${LOCK_FILE}
+}
+
+function remove_lock {
+  rm ${LOCK_FILE}
 }
 EOF
 
 BASHRC="${HOME}/.bashrc"
-SOURCE_LINE=". ${HOME}/.esgf-functions.sh"
+SOURCE_LINE=". ${HOME}/.init-functions.sh"
 
 # We want .esgf-functions.sh to be loaded everytime
 [[ ! $(grep "${SOURCE_LINE}" "${BASHRC}") ]] && echo "${SOURCE_LINE}" >> "${BASHRC}"
@@ -36,21 +47,6 @@ SOURCE_LINE=". ${HOME}/.esgf-functions.sh"
 # Source the functions now to use them.
 . "${HOME}/.init-functions.sh"
 
-LOCK_FILE="${HOME}/.compute-lock"
 GETTING_STARTED="${HOME}/getting_started.ipynb"
 
-if [[ ! -e "${LOCK_FILE}" ]]; then
-  compute_init
-
-  getting_started
-
-  esgf_search
-
-  touch "${LOCK_FILE}"
-fi
-
-if [[ ! -e "${GETTING_STARTED}" ]]; then
-  getting_started
-else
-  echo "TODO check if getting_started needs to be updated."
-fi
+compute_init
