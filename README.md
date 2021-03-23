@@ -1,32 +1,40 @@
-# Nimbus
+# Nimbus Cluster
 
 This repository contains the getting started documentation for the LLNL Nimbus Cluster.
 
-* [Create a Github account](#github-account)
-* [Request Access](#request-access)
-* [Next Steps](#next-steps)
-* [Issues](#issues)
+**If you run into any issues please report them [here](https://github.com/esgf-compute/getting_started/issues/new).**
 
 ## GitHub Account
 
-If you do not already have a GitHub account please create one [here](https://github.com/join)
+If you do not already have a GitHub account please create one [here](https://github.com/join).
 
-## Request Access
+## Steps to login
+Follow the steps below to login to the LLNL ESGF JupyterHub service hosted on the Nimbus cluster.
 
-**TBD**
-
-## Next Steps
-
-### Set Github organization membership visbility
-Once you've been added to the [esgf-nimbus](https://github.com/esgf-nimbus) organization you'll need to set the visbility of organization member to public. See this [guide](https://help.github.com/en/github/setting-up-and-managing-your-github-user-account/publicizing-or-hiding-organization-membership) for a step-by-step walkthrough. 
-
-### Log into JupyterHub on aims2
-Open your browser and naviate to [aims2](https://aims2.llnl.gov/jupyterhub/). Click the "Sign in with Github" button and login with the same GitHub credentials.
+### Log into JupyterHub
+Open your browser and naviate to [nimbus1](https://nimbus1.llnl.gov/jupyterhub/). Click the "Sign in with Keycloak" button and you'll be redirect to authenticate with the Nimbus Keycloak server.
 
 ![signin](img/signin.png)
 
+### Choose your IDP (IDentity Provider)
+Once you've landed on the Keycloak page choose your preferred identity provider. Currently we support the following:
+
+- Github
+
+![idp](img/idp.png)
+
+### Sign in with your IDP
+This may change depending on your chosen IDP. The following example is for GitHub. You'll be asked to login and authorize the `nimbus-test` application.
+
+![github login](img/github_login.png)
+
+### Authorization
+After logging into your IDP you'll need t wait for authorization from an admin.
+
+![waiting authorization](img/waiting_authorization.png)
+
 ### Select the environment to launch
-After a successful authentication you'll be presented with a list of environment options. Once you've choosen your environment click the "Spawn" button. 
+Once you've been approved you can launch a JupyterLab image. You'll have a list of images to choose from, each image will come pre-loaded with specific JupyterLab extensions or software.
 
 **NOTE** This may a take a few minutes to prepare your environemnt.
 
